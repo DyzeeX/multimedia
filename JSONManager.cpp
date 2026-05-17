@@ -1,6 +1,7 @@
 #include "JSONManager.hpp"
 
 #include <fstream>
+#include <iostream>
 
 JSONManager::JSONManager(){
     m_json = {
@@ -44,4 +45,8 @@ void JSONManager::CreateJSONFile(const char* dir_path) {
     if(o.is_open()) {
         o << m_json.dump(4);
     }
+}
+
+void JSONManager::Clear(){
+    m_json.clear();
 }

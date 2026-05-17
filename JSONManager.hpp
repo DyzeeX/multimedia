@@ -8,7 +8,8 @@ class JSONManager {
 public:
     JSONManager();
     void AddMultimediaFile(std::string file_name, char type);
-    void CreateJSONFile(const char* dir_path = "/home/dyzeex/");
+    void CreateJSONFile(const char* dir_path);
+    void Clear();
 private:
     nlohmann::json m_json;
     const char* json_file_name = "media_files.json";

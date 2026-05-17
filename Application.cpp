@@ -1,8 +1,11 @@
 #include "Application.hpp"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
+#include <ctime>
 
-void Application::StartSettings(std::string& dir_path, unsigned int& interval) {
+void Application::StartSettings() {
     bool correct_path = false;
     bool correct_time = false;
 
@@ -10,12 +13,12 @@ void Application::StartSettings(std::string& dir_path, unsigned int& interval) {
         // path
         if (!correct_path){
             std::cout << "Please, enter the full directory path: ";
-            std::getline(std::cin >> std::ws, dir_path);
+            std::getline(std::cin >> std::ws, m_directoryPath);
 
-            if(isDirectoryExist(dir_path.c_str())) {
+            if(isDirectoryExist(m_directoryPath.c_str())) {
                 correct_path = true;
             } else {
-                std::cout << "Can't open '" << dir_path << "' directory.";
+                std::cout << "Can't open '" << m_directoryPath << "' directory.";
             }
         }
 
@@ -37,7 +40,7 @@ void Application::StartSettings(std::string& dir_path, unsigned int& interval) {
                               << std::numeric_limits<unsigned int>::max() << ").\n";
                 } 
                 else {
-                    interval = static_cast<unsigned int>(value);
+                    m_repeatTime = static_cast<unsigned int>(value);
                     correct_time = true;
                 }
             } catch (const std::invalid_argument&) {
@@ -52,6 +55,38 @@ void Application::StartSettings(std::string& dir_path, unsigned int& interval) {
     }
 }
 
-void Application::MainLoop(std::vector<std::string> files) {
+void Application::MainLoop() {
+    StartSettings();
+
+    std::vector<std::string> files;
+
+    while(true){
+        auto start = std::chrono::steady_clock::now();
+
+        files.clear();
+        m_js.Clear();
+
+        files = serarchFilesPathInDirectory(m_directoryPath.c_str());
+
+        for(auto& str : files){
+            auto [is_media, type] = m_ms.IsMultimedia(str.c_str());
+            if(is_media){
+                size_t slash_pos = str.find_last_of ('/');
+                if (slash_pos != std::string::npos && slash_pos != 0) {
+                    str = str.substr(slash_pos + 1);
+                }
+                m_js.AddMultimediaFile(str, type);
+            }
+        }
+        m_js.CreateJSONFile(m_directoryPath.c_str());
+
+        auto end = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+
+        auto sleep_time = std::chrono::seconds(m_repeatTime) - elapsed;
+        if (sleep_time > std::chrono::seconds(0)) {
+            std::this_thread::sleep_for(sleep_time);
+        }
+    }
 
 }

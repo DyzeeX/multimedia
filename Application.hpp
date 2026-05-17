@@ -6,9 +6,13 @@
 
 class Application {
 public:
-    void StartSettings(std::string& dir_path, unsigned int& interval);
-    void MainLoop(std::vector<std::string> files);
+    void StartSettings();
+    void MainLoop();
+    std::string& GetPath() { return m_directoryPath; }
+    unsigned int& GetTime() {return m_repeatTime; }
 private:
     JSONManager m_js;
     MultimediaSearch m_ms;
+    std::string m_directoryPath;
+    unsigned int m_repeatTime;
 };
