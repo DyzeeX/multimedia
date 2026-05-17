@@ -11,10 +11,6 @@ JSONManager::JSONManager(){
     };
 }
 
-// cases: 
-// 1 - audio file
-// 2 - video file
-// 3 - image file
 void JSONManager::AddMultimediaFile(std::string file_name, char type) {
     switch (type) {
         case 1 : 
