@@ -2,16 +2,20 @@
 
 #include <magic.h>
 
-#include "dir.hpp"
-#include "JSONManager.hpp"
-#include "MultimediaSearch.hpp"
+#include "Application.hpp"
 
 int main() {
+    std::string directory_path;
+    unsigned int repeat_time;
 
+    auto app = std::make_unique<Application>();
     auto js = std::make_unique<JSONManager>();
-    auto r = serarchFilesPathInDirectory("/home/dyzeex/test");
-
     auto ms = std::make_unique<MultimediaSearch>();
+
+    app->StartSettings(directory_path, repeat_time);
+    
+    auto r = serarchFilesPathInDirectory(directory_path.c_str());
+
     for(auto& str : r){
         auto [is_media, type] = ms->IsMultimedia(str.c_str());
         if(is_media){

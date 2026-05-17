@@ -6,7 +6,9 @@
 
 class Application {
 public:
-    Application();
+    void StartSettings(std::string& dir_path, unsigned int& interval);
+    void MainLoop(std::vector<std::string> files);
 private:
-    
+    JSONManager m_js;
+    MultimediaSearch m_ms;
 };

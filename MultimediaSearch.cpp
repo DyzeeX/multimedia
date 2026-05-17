@@ -7,7 +7,7 @@ MultimediaSearch::MultimediaSearch() {
     magic_load(magic_cookie, nullptr);
 }
 
-std::pair<bool, char> MultimediaSearch::IsMultimedia(const char* file_name) {
+std::pair<bool, char> MultimediaSearch::IsMultimedia(const char* file_name) const {
     const char* mime_type = magic_file(magic_cookie, file_name);
 
     if (mime_type == nullptr) return {false, -1};

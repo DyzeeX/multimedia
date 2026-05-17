@@ -17,6 +17,7 @@ add_executable(multimedia
     "dir.cpp"
     "JSONManager.cpp"
     "MultimediaSearch.cpp"
+    "Application.cpp"
     )
 
 find_library(MAGIC_LIBRARY NAMES magic REQUIRED)
