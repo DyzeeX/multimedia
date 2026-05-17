@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <magic.h>
+
 #include "dir.hpp"
 #include "JSONManager.hpp"
 

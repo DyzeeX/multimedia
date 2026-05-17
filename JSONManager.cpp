@@ -44,5 +44,4 @@ void JSONManager::CreateJSONFile(const char* dir_path) {
     if(o.is_open()) {
         o << m_json.dump(4);
     }
-    o.close();
 }

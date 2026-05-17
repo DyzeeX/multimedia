@@ -16,6 +16,7 @@ add_executable(multimedia
     "main.cpp"
     "dir.cpp"
     "JSONManager.cpp"
+    "MultimediaSearch.cpp"
     )
 
 target_link_libraries(multimedia PRIVATE nlohmann_json::nlohmann_json)
