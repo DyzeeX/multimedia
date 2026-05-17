@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include "daemon.h"
 
 #include <iostream>
 #include <chrono>
@@ -57,7 +58,8 @@ void Application::StartSettings() {
 
 void Application::MainLoop() {
     StartSettings();
-
+    Daemonize();
+    
     std::vector<std::string> files;
 
     while(true){
