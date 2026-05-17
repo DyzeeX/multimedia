@@ -5,6 +5,12 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
+bool isDirectoryExist(const char* dir_path) {
+    DIR* dir;
+    dir = opendir(dir_path);
+    return dir == 0 ? false : true;
+}
+
 std::vector<std::string> serarchFilesPathInDirectory(const char* dir_path){
     std::vector<std::string> result{};
 
