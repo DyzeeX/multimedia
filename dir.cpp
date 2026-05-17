@@ -16,7 +16,7 @@ std::string getExtention(const char* file) {
     return "";
 }
 
-std::vector<std::string> serarchFFileNamesInDirectory(const char* dir_path){
+std::vector<std::string> serarchFilesInDirectory(const char* dir_path){
     std::vector<std::string> result{};
 
     struct stat st;
@@ -35,8 +35,7 @@ std::vector<std::string> serarchFFileNamesInDirectory(const char* dir_path){
         }
 
         if(S_ISDIR(st.st_mode)){
-            auto sub = serarchFFileNamesInDirectory(temp_path.c_str());
-           result.insert(result.end(), sub.begin(), sub.end());
+           serarchFilesInDirectory(temp_path.c_str());
         } else if (S_ISREG(st.st_mode)){
             result.push_back(getExtention(dr->d_name));
         }
