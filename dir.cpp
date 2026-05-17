@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-std::vector<std::string> serarchFilesInDirectory(const char* dir_path){
+std::vector<std::string> serarchFilesPathInDirectory(const char* dir_path){
     std::vector<std::string> result{};
 
     struct stat st;
@@ -24,9 +24,10 @@ std::vector<std::string> serarchFilesInDirectory(const char* dir_path){
         }
 
         if(S_ISDIR(st.st_mode)){
-           serarchFilesInDirectory(temp_path.c_str());
+            auto sub = serarchFilesPathInDirectory(temp_path.c_str());
+            result.insert(result.end(), sub.begin(), sub.end());
         } else if (S_ISREG(st.st_mode)){
-            result.push_back(dr->d_name);
+            result.push_back(temp_path);
         }
     }
 

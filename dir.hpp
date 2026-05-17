@@ -3,4 +3,4 @@
 #include <vector>
 #include <string>
 
-std::vector<std::string> serarchFilesInDirectory(const char* dir_path);
+std::vector<std::string> serarchFilesPathInDirectory(const char* dir_path);

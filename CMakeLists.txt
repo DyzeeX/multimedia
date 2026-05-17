@@ -19,4 +19,9 @@ add_executable(multimedia
     "MultimediaSearch.cpp"
     )
 
-target_link_libraries(multimedia PRIVATE nlohmann_json::nlohmann_json)
+find_library(MAGIC_LIBRARY NAMES magic REQUIRED)
+
+target_link_libraries(multimedia PRIVATE 
+    nlohmann_json::nlohmann_json
+    ${MAGIC_LIBRARY}
+)
