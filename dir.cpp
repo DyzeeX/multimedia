@@ -5,17 +5,6 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-std::string getExtention(const char* file) {
-    std::string res(file);
-    
-    size_t dot_pos = res.find_last_of ('.');
-    if (dot_pos != std::string::npos && dot_pos != 0) {
-        res = res.substr(dot_pos + 1);
-        return res;
-    }
-    return "";
-}
-
 std::vector<std::string> serarchFilesInDirectory(const char* dir_path){
     std::vector<std::string> result{};
 
@@ -37,7 +26,7 @@ std::vector<std::string> serarchFilesInDirectory(const char* dir_path){
         if(S_ISDIR(st.st_mode)){
            serarchFilesInDirectory(temp_path.c_str());
         } else if (S_ISREG(st.st_mode)){
-            result.push_back(getExtention(dr->d_name));
+            result.push_back(dr->d_name);
         }
     }
 

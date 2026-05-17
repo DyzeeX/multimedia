@@ -15,6 +15,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_executable(multimedia 
     "main.cpp"
     "dir.cpp"
+    "JSONManager.cpp"
     )
 
 target_link_libraries(multimedia PRIVATE nlohmann_json::nlohmann_json)
